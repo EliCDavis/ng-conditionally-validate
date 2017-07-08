@@ -1,0 +1,32 @@
+{
+  "name": "angular-module-starter",
+  "version": "1.0.0",
+  "description": "Angular Module Starter",
+  "main": "bundles/ng-conditionally-validate.umd.js",
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {},
+  "keywords": [
+    "angular",
+    "FormControl",
+    "FormGroup",
+    "ReactiveForms"
+  ],
+  "author": "EliCDavis",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EliCDavis/ng-conditionally-validate.git"
+  },
+  "homepage": "https://github.com/EliCDavis/ng-conditionally-validate",
+  "bugs": {
+    "url": "https://github.com/EliCDavis/ng-conditionally-validate/issues"
+  },
+  "peerDependencies": {
+    "@angular/core": "^2.4.0",
+    "@angular/forms": "^2.4.0",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "^5.0.3",
+    "zone.js": "^0.7.2"
+  }
+}

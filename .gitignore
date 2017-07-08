@@ -1,4 +1,6 @@
 node_modules
 .vscode
 yarn.lock
-dist/
+*.ngsummary.json
+dist/*
+!dist/package.json
