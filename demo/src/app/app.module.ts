@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ExampleOneComponent } from './example-one/example-one.component';
 
-import { ConditionallyValidationModule } from '../../../dist';
+import { ConditionallyValidationModule } from 'ng-conditionally-validate';
 
 @NgModule({
   declarations: [

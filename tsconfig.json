@@ -36,6 +36,10 @@
     "./src/index.ts"
   ],
   "angularCompilerOptions": {
-    "strictMetadataEmit": true
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "ng-conditionally-validate.js",
+    "flatModuleId": "ng-conditionally-validate"
   }
 }

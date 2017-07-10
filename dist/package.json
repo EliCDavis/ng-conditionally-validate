@@ -1,7 +1,7 @@
 {
-  "name": "angular-module-starter",
+  "name": "ng-conditionally-validate",
   "version": "1.0.0",
-  "description": "Angular Module Starter",
+  "description": "NG Conditionally Validate",
   "main": "bundles/ng-conditionally-validate.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",

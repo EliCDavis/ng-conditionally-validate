@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConditionallyValidateService } from "../../../../dist";
+import { ConditionallyValidateService } from "ng-conditionally-validate";
 
 @Component({
   selector: 'app-example-one',

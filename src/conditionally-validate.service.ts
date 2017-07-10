@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
+// https://github.com/rangle/angular-2-aot-sandbox#aot-dos-and-donts
+
 @Injectable()
 export class ConditionallyValidateService {
 
@@ -26,7 +28,7 @@ export class ConditionallyValidateService {
         return {
             areRequiredWhen: (condition: string) => {
                 const conditionLatest$ = new BehaviorSubject<any>(null);
-                const conditionControl = form.get(condition);
+                const conditionControl = form.controls[condition];
                 if (conditionControl === null) {
                     console.error(`[Conditionally Validate]: Passed in bad control selector (${condition}) for a condition`);
                     return;
@@ -38,7 +40,7 @@ export class ConditionallyValidateService {
 
                         // Hook in validator
                         dependents.forEach(dependency => {
-                            const dep = form.get(dependency);
+                            const dep = form.controls[dependency];
                             if (dep === null) {
                                 console.warn(`[Conditionally Validate]: Passed in bad control selector (${dependency}) for a dependency`);
                                 return;
@@ -52,7 +54,7 @@ export class ConditionallyValidateService {
                         // Update our dependents whenever we get a value change
                         conditionLatest$.subscribe(x => {
                             dependents.forEach(dependency => {
-                                const dep = form.get(dependency);
+                                const dep = form.controls[dependency];
                                 if (dep === null) {
                                     console.warn(`[Conditionally Validate]: Control selector (${dependency}) returns missing control`);
                                     return;
