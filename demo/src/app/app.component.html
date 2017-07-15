@@ -1,14 +1,28 @@
-<md-sidenav-container style="flex: 1; display: flex; flex-direction: column">
-  <md-sidenav #sidenav>
-    Jolly good!
+<md-sidenav-container (backdropClick)="sidenavCloseRequest$.next($event)" style="flex: 1; display: flex; flex-direction: column">
+  <md-sidenav [mode]='sidenavMode | async' [opened]="sidenavOpen$ | async" #sidenav>
+    <div (click)="sidenavCloseRequest$.next($event)">
+      Setup
+    </div>
+    <div (click)="sidenavCloseRequest$.next($event)">
+      Basic Validation
+    </div>
+    <div (click)="sidenavCloseRequest$.next($event)">
+      Example 2
+    </div>
   </md-sidenav>
 
   <div fxFlex fxLayout="column">
-    <md-toolbar color="primary" fxLayout="row" style="display: flex">
-      <div>Ng Conditionally Validate</div>
-    </md-toolbar>
+    <div [ngClass]="{ 'title-normal': (normalTitleBar$ | async) }" class="title-display" color="primary" fxLayout="row" style="display: flex">
+      <div class="mat-display-1" id="title-text" [innerText]="title$ | async"></div>
 
-    <router-outlet></router-outlet>
+      <button *ngIf="(sidenavMode | async) === 'over'" (click)="sidenavToggleClick$.next($event)" md-button>
+    <md-icon svgIcon="menu"></md-icon>
+    </button>
+    </div>
+
+    <div fxFlex fxLayout="column" style="overflow: auto;">
+      <router-outlet></router-outlet>
+    </div>
 
   </div>
 </md-sidenav-container>

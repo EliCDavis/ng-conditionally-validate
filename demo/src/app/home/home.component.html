@@ -1,0 +1,43 @@
+<div fxLayout="column" fxFlex>
+
+  <div fxFlex></div>
+
+  <md-card>
+    Filling out forms on some webpages is not always an 'all-or-none' proccess. Certain data fields may or may not need validation
+    due to how previous entries have been filled out. This library aims to make conditional validation in Angular 4 an intuitive
+    one-liner.
+    <br>
+    <div class="example-code">
+      <code>validate(form, 'address')
+  .when('workingFromHome')
+  .is(true);</code>
+    </div>
+  </md-card>
+
+  <div fxFlex></div>
+
+  <div fxFlex="none" fxLayout.xs="column" fxLayoutAlign="space-around" fxLayout.gt-xs="row">
+    <button color="primary" routerLink="/install" md-raised-button>
+      <md-icon svgIcon="download"></md-icon>
+      Installation
+    </button>
+
+    <button color="primary" routerLink="/example/1" md-raised-button>
+      <md-icon svgIcon="code"></md-icon>
+      See Examples
+    </button>
+
+    <button color="primary" (click)="openSource()" md-raised-button>
+      <md-icon svgIcon="github"></md-icon>
+      View Source
+    </button>
+  </div>
+
+  <div fxFlex></div>
+
+  <small fxHide.xs style="text-align: center; margin-top: 10px;">
+  Written by Eli C Davis;
+  <br/>
+  Distributed under the MIT Licensing Agreement
+</small>
+</div>

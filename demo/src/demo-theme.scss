@@ -16,3 +16,7 @@ $demo-app-theme: mat-light-theme($demo-app-primary, $demo-app-accent, $demo-app-
         color: mat-color($demo-app-accent, 900);
     }
 }
+
+.title-display{
+    background-color: mat-color($demo-app-primary, 500);
+}

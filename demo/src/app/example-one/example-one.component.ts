@@ -22,7 +22,7 @@ export class ExampleOneComponent implements OnInit {
       drink: ['', Validators.required]
     });
 
-    cv.conditionallyValidate(this.form, 'food', 'drink')
+    cv.validate(this.form, 'food', 'drink')
       .when('human')
       .is(true)
   }

@@ -1,0 +1,15 @@
+:host {
+    flex-direction: column;
+    display: flex;
+    margin: 8px;
+    flex: 1;
+    overflow: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+button {
+    margin-top: 8px;
+}

@@ -1,0 +1,30 @@
+.title-display {
+    white-space: normal;
+    text-align: center;
+    line-height: 50px;
+    padding: 35px 20px 35px 20px;
+    color: white;
+    transition: .4s;
+}
+
+.title-normal.title-display {
+    line-height: 30px;
+    padding: 15px 20px 15px 20px;
+}
+
+#title-text {
+    margin:0px;
+}
+
+.mat-display-1#title-text {
+    font-size: 32px;
+    transition: .4s;
+}
+
+.title-normal>.mat-display-1#title-text {
+    font-size: 20px;
+}
+
+md-sidenav {
+    width: 200px;
+}

@@ -20,7 +20,7 @@ export class ConditionallyValidateService {
         };
     }
 
-    conditionallyValidate(form: FormGroup, ...dependents: Array<string>): {
+    validate(form: FormGroup, ...dependents: Array<string>): {
         when: (condition: string) => {
             is: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean) => void
         }

@@ -1,4 +1,4 @@
-export { exampleOne }
+export { exampleOne, importExample }
 
 const exampleOne: string =
     `
@@ -29,5 +29,26 @@ export class ExampleOneComponent implements OnInit {
     ngOnInit() { }
 
 }
+
+`;
+
+const importExample: string = `
+import { ConditionallyValidationModule } from 'ng-conditionally-validate';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    NgModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ConditionallyValidationModule,
+    ...
+  ],
+  ...
+})
+export class AppModule { }
 
 `;
