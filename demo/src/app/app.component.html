@@ -1,4 +1,14 @@
-<h1>
-  {{title}}
-</h1>
-<app-example-one></app-example-one>
+<md-sidenav-container style="flex: 1; display: flex; flex-direction: column">
+  <md-sidenav #sidenav>
+    Jolly good!
+  </md-sidenav>
+
+  <div fxFlex fxLayout="column">
+    <md-toolbar color="primary" fxLayout="row" style="display: flex">
+      <div>Ng Conditionally Validate</div>
+    </md-toolbar>
+
+    <router-outlet></router-outlet>
+
+  </div>
+</md-sidenav-container>
