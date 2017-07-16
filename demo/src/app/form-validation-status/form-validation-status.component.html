@@ -1,0 +1,8 @@
+<md-chip-list fxLayoutAlign="center center">
+  <md-chip color="accent" selected="true" *ngIf="form.status === 'VALID'">
+    Valid
+  </md-chip>
+  <md-chip color="warn" selected="true" *ngIf="form.status !== 'VALID'">
+    Not Valid
+  </md-chip>
+</md-chip-list>

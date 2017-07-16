@@ -7,10 +7,30 @@ app-root {
     margin:0px;
     display: flex;
     flex-direction: column;
+    flex: 1;
+}
+
+
+@media only screen and (min-width: 600px) {
+    app-home,
+    app-example-one,
+    app-example-two,
+    app-example-three {
+        margin: 16px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    app-home,
+    app-example-one,
+    app-example-two,
+    app-example-three {
+        margin: 8px;
+    }
 }
 
 .example-code>code {
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .example-code {

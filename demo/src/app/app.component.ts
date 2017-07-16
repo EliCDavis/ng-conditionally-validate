@@ -8,7 +8,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 const routeToTitle = {
   '/': 'Ng Conditionally Validate',
   '/install': 'Install',
-  '/example/1': 'Basic Validation'
+  '/example/1': 'Basic Validation',
+  '/example/2': 'Multiple Conditions',
+  '/example/3': 'Conditional Validators'
 }
 
 @Component({
@@ -29,6 +31,8 @@ export class AppComponent implements OnInit {
   sidenavToggleClick$: Subject<any>;
 
   sidenavCloseRequest$: Subject<any>;
+
+  showHamburgerMenu$: Observable<boolean>;
 
   constructor(private route: Router, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
 
@@ -56,8 +60,13 @@ export class AppComponent implements OnInit {
       'github',
       sanitizer.bypassSecurityTrustResourceUrl('assets/github-circled-alt2.svg'));
 
+    iconRegistry.addSvgIcon(
+      'menu',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/menu.svg'));
+
     this.sidenavToggleClick$ = new Subject<any>();
     this.sidenavCloseRequest$ = new Subject<any>();
+
 
   }
 
@@ -72,6 +81,9 @@ export class AppComponent implements OnInit {
       Observable.from([document.documentElement.clientWidth])
       )
       .map(x => x > 599 ? 'side' : 'over')
+      .combineLatest(this.normalTitleBar$, (side, normal) => {
+        return normal ? side : 'over';
+      })
       .delay(100)
       .share();
 
@@ -82,6 +94,12 @@ export class AppComponent implements OnInit {
         .scan((acc, x) => x === 'force' ? false : !acc, false).startWith(false),
       (mode: string, toggle) => mode === 'side' ? true : toggle
     ).share();
+
+
+    this.showHamburgerMenu$ = this.normalTitleBar$
+      .combineLatest(this.sidenavMode, (normal, mode) => {
+        return normal ? mode === 'over' : false;
+      })
 
   }
 

@@ -1,7 +1,6 @@
 :host {
     flex-direction: column;
     display: flex;
-    margin: 8px;
     flex: 1;
     overflow: auto;
 }

@@ -20,3 +20,24 @@ $demo-app-theme: mat-light-theme($demo-app-primary, $demo-app-accent, $demo-app-
 .title-display{
     background-color: mat-color($demo-app-primary, 500);
 }
+
+#md-sidenav-content {
+    background-color: mat-color($demo-app-primary, 50);
+    border-right-color: mat-color($demo-app-primary, 200);
+    .option {
+        &.selected {
+            background-color: mat-color($demo-app-accent, 500);
+            color: white;
+        }
+    }
+}   
+
+#sidenav-header {
+    background-color: mat-color($demo-app-primary, 500);
+}
+
+.option-section-header {
+    border-top-color: mat-color($demo-app-primary, 200);
+    border-bottom-color: mat-color($demo-app-primary, 200);
+    background-color: mat-color($demo-app-primary, 500);
+}

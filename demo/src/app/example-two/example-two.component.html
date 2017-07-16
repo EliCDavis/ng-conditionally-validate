@@ -1,0 +1,33 @@
+<md-card>
+  <md-card-title>
+    Multiple Conditions
+  </md-card-title>
+  <md-card-content fxLayoutGap="10px" fxLayout="column">
+    <md-card-subtitle>
+      Require a entry to be validated depending on the values of one or <b>multiple</b> other controls.
+    </md-card-subtitle>
+    <md-tab-group>
+      <md-tab label="Result" [formGroup]="form">
+        <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 25px;" fxLayoutGap="20px">
+
+          <md-select formControlName="favoritePizza" style="width:80%" placeholder="Favorite Pizza">
+            <md-option *ngFor="let pizza of pizzaTypes" [value]="pizza.value">
+              {{ pizza.viewValue }}
+            </md-option>
+          </md-select>
+
+          <md-slide-toggle formControlName="buyFromStarbucks">Do You Buy From Starbucks</md-slide-toggle>
+
+          <app-form-validation-status [form]="form"> </app-form-validation-status>
+        </div>
+      </md-tab>
+
+      <md-tab label="TS">
+        <div class="example-code" style="overflow: auto">
+          <code [innerText]="codeExample"></code>
+        </div>
+      </md-tab>
+
+    </md-tab-group>
+  </md-card-content>
+</md-card>

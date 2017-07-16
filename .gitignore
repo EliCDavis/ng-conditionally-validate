@@ -4,3 +4,4 @@ yarn.lock
 *.ngsummary.json
 dist/*
 !dist/package.json
+test/*

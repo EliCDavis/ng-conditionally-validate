@@ -1,24 +1,34 @@
+<div [ngClass]="{ 'title-normal': (normalTitleBar$ | async) }" class="title-display" color="primary" fxLayout="row">
+  <div class="mat-display-1" id="title-text" [innerText]="title$ | async"></div>
+
+  <div fxFlex fxShow="showHamburgerMenu$ | async"></div>
+
+  <button *ngIf="showHamburgerMenu$ | async" (click)="sidenavToggleClick$.next($event)" md-button>
+        <md-icon svgIcon="menu"></md-icon>
+      </button>
+</div>
 <md-sidenav-container (backdropClick)="sidenavCloseRequest$.next($event)" style="flex: 1; display: flex; flex-direction: column">
-  <md-sidenav [mode]='sidenavMode | async' [opened]="sidenavOpen$ | async" #sidenav>
-    <div (click)="sidenavCloseRequest$.next($event)">
-      Setup
-    </div>
-    <div (click)="sidenavCloseRequest$.next($event)">
-      Basic Validation
-    </div>
-    <div (click)="sidenavCloseRequest$.next($event)">
-      Example 2
+  <md-sidenav fxLayout="column" [mode]='sidenavMode | async' [opened]="sidenavOpen$ | async" #sidenav>
+    <div class="mat-typography" id="md-sidenav-content">
+
+      <div class="option-section-header">Introduction</div>
+
+      <div routerLink="/install" [ngClass]="{ 'selected': (title$ | async) === 'Install' }" class="option" (click)="sidenavCloseRequest$.next($event)">
+        Setup
+      </div>
+
+      <div style="margin-top: 20px;" class="option-section-header">Examples</div>
+      <div routerLink="/example/1" [ngClass]="{ 'selected': (title$ | async) === 'Basic Validation' }" class="option" (click)="sidenavCloseRequest$.next($event)">Basic Validation</div>
+      <div routerLink="/example/2" [ngClass]="{ 'selected': (title$ | async) === 'Multiple Conditions' }" class="option" (click)="sidenavCloseRequest$.next($event)">
+        Multiple Conditions
+      </div>
+      <div routerLink="/example/3" [ngClass]="{ 'selected': (title$ | async) === 'Conditional Validators' }" class="option" (click)="sidenavCloseRequest$.next($event)">Conditional Validators</div>
+
     </div>
   </md-sidenav>
 
   <div fxFlex fxLayout="column">
-    <div [ngClass]="{ 'title-normal': (normalTitleBar$ | async) }" class="title-display" color="primary" fxLayout="row" style="display: flex">
-      <div class="mat-display-1" id="title-text" [innerText]="title$ | async"></div>
 
-      <button *ngIf="(sidenavMode | async) === 'over'" (click)="sidenavToggleClick$.next($event)" md-button>
-    <md-icon svgIcon="menu"></md-icon>
-    </button>
-    </div>
 
     <div fxFlex fxLayout="column" style="overflow: auto;">
       <router-outlet></router-outlet>

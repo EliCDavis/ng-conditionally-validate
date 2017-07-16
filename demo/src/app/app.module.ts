@@ -17,7 +17,8 @@ import {
   MdInputModule,
   MdTabsModule,
   MdChipsModule,
-  MdIconModule
+  MdIconModule,
+  MdSelectModule
 } from '@angular/material';
 
 import { ConditionallyValidationModule } from 'ng-conditionally-validate';
@@ -26,13 +27,19 @@ import { AppComponent } from './app.component';
 import { ExampleOneComponent } from './example-one/example-one.component';
 import { HomeComponent } from './home/home.component';
 import { InstallComponent } from './install/install.component';
+import { ExampleTwoComponent } from './example-two/example-two.component';
+import { ExampleThreeComponent } from './example-three/example-three.component';
+import { FormValidationStatusComponent } from './form-validation-status/form-validation-status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExampleOneComponent,
     HomeComponent,
-    InstallComponent
+    InstallComponent,
+    ExampleTwoComponent,
+    ExampleThreeComponent,
+    FormValidationStatusComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -42,6 +49,7 @@ import { InstallComponent } from './install/install.component';
     MdSidenavModule,
     MdChipsModule,
     MdInputModule,
+    MdSelectModule,
     MdCardModule,
     MdIconModule,
     FormsModule,
@@ -55,7 +63,8 @@ import { InstallComponent } from './install/install.component';
       { path: '', component: HomeComponent },
       { path: 'install', component: InstallComponent },
       { path: 'example/1', component: ExampleOneComponent },
-      { path: 'example/2', component: ExampleOneComponent }
+      { path: 'example/2', component: ExampleTwoComponent },
+      { path: 'example/3', component: ExampleThreeComponent }
     ])
   ],
   providers: [],

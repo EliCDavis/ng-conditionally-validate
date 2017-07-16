@@ -22,9 +22,39 @@
 }
 
 .title-normal>.mat-display-1#title-text {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 md-sidenav {
     width: 200px;
+    display: flex;
+}
+
+
+md-sidenav *:focus {
+    outline: none;
+}
+
+#md-sidenav-content {
+    flex: 1;
+    display: column;
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+
+#md-sidenav-content .option {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.option-section-header {
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-style: solid;
+    border-bottom-style: solid;
 }

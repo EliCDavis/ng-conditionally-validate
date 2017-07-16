@@ -1,3 +1,5 @@
+// MIT - Eli C Davis
+
 import { ConditionallyValidateService } from './conditionally-validate.service';
 
 import { NgModule } from '@angular/core';

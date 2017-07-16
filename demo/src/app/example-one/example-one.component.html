@@ -1,7 +1,4 @@
 <md-card>
-  <md-card-title>
-    Example One
-  </md-card-title>
   <md-card-content fxLayoutGap="10px" fxLayout="column">
     <md-card-subtitle>
       Require one or many properties of a form to be validated for the form as a whole to be considered valid
@@ -22,14 +19,7 @@
               All Humans like to sip on something.
             </md-error>
           </md-input-container>
-          <md-chip-list fxLayoutAlign="center center">
-            <md-chip color="accent" selected="true" *ngIf="form.status === 'VALID'">
-              Valid
-            </md-chip>
-            <md-chip color="warn" selected="true" *ngIf="form.status !== 'VALID'">
-              Not Valid
-            </md-chip>
-          </md-chip-list>
+          <app-form-validation-status [form]="form"> </app-form-validation-status>
         </div>
       </md-tab>
 

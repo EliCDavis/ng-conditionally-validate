@@ -1,3 +1,5 @@
+// MIT - Eli C Davis
+
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
@@ -20,6 +22,11 @@ export class ConditionallyValidateService {
         };
     }
 
+    /**
+     * Specify what you want to be validated conditionally
+     * @param form          The group you want to conditionally validate controls for.
+     * @param dependents    The controls that need conditional validtation. Use the selection scheme 'groupName.controlName' for selecting within a group
+     */
     validate(form: FormGroup, ...dependents: Array<string>): {
         when: (condition: string) => {
             is: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean) => void
@@ -33,7 +40,7 @@ export class ConditionallyValidateService {
                     console.error(`[Conditionally Validate]: Passed in bad control selector (${condition}) for a condition`);
                     return {
                         is: (a, b?) => {
-                            console.warn('[Conditionally Validate]: You passed in a bad selector!')
+                            console.warn('[Conditionally Validate]: You passed in a bad selector!');
                         }
                     };
                 }
@@ -52,7 +59,7 @@ export class ConditionallyValidateService {
 
                             dep.setValidators(
                                 this.conditionallyRequired(conditionLatest$, whenConditionalIsThis, dep.validator, equalityCheck)
-                            )
+                            );
                         });
 
                         // Update our dependents whenever we get a value change
@@ -67,9 +74,9 @@ export class ConditionallyValidateService {
                             });
                         });
                     }
-                }
+                };
             }
-        }
+        };
     }
 
 }
