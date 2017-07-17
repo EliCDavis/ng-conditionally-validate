@@ -9,7 +9,8 @@
     "minify": "uglifyjs dist/bundles/ng-conditionally-validate.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ng-conditionally-validate.umd.min.js",
     "build": "npm run transpile && npm run package && npm run minify",
     "lint": "tslint ./src/**/*.ts -t verbose",
-    "test": "karma start karma.conf.js"
+    "dev": "concurrently \"tsc -p ./tsconfig.spec.json -w\" \"karma start karma.conf.js\"",
+    "test": "tsc -p ./tsconfig.spec.json && karma start karma.conf.js --single-run"
   },
   "keywords": [
     "angular",
@@ -53,5 +54,8 @@
     "vrsource-tslint-rules": "^5.1.0",
     "webpack": "2.3.3",
     "zone.js": "^0.8.5"
+  },
+  "dependencies": {
+    "concurrently": "^3.5.0"
   }
 }

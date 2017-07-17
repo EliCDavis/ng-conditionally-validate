@@ -34,7 +34,6 @@ export class ConditionallyValidateService {
     } {
         return {
             when: (condition: string) => {
-                const conditionLatest$ = new BehaviorSubject<any>(null);
                 const conditionControl = form.controls[condition];
                 if (conditionControl === null) {
                     console.error(`[Conditionally Validate]: Passed in bad control selector (${condition}) for a condition`);
@@ -44,6 +43,7 @@ export class ConditionallyValidateService {
                         }
                     };
                 }
+                const conditionLatest$ = new BehaviorSubject<any>(conditionControl.value);
 
                 conditionControl.valueChanges.subscribe(x => conditionLatest$.next(x));
                 return {

@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": "",
+        "outDir": "./test",
+        "module": "commonjs",
+        "declaration": false,
+        "strictNullChecks": false,
+        "emitDecoratorMetadata": true
+    },
+    "files": [
+        "./src/index.ts",
+        "./src/conditionally-validate.service.spec.ts"
+    ]
+}
