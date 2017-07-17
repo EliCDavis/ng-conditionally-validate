@@ -4,6 +4,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConditionallyValidateService } from './conditionally-validate.service';
+import { Observable } from 'rxjs/Rx';
 
 describe('ConditinoallyValidateService', () => {
     beforeEach(() => {
@@ -43,6 +44,24 @@ describe('ConditinoallyValidateService', () => {
         expect(form.valid).toBeTruthy();
         form.get('x').setValue('b');
         expect(form.valid).toBeFalsy();
+    }));
+
+
+    it('Service should return observable that emits a boolean whether or not validation is taking place', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
+        const form: FormGroup = fb.group({
+            x: ['a'],
+            y: ['', Validators.required]
+        });
+        const obs = cv.validate(form, 'y').when('x').is('b');
+        expect(obs).toBeTruthy();
+
+        let lastVal = null;
+        obs.subscribe(x => { lastVal = x; });
+        expect(lastVal).toBeFalsy();
+        form.get('x').setValue('b');
+        expect(lastVal).toBeTruthy();
+        form.get('x').setValue('a');
+        expect(lastVal).toBeFalsy();
     }));
 
 
