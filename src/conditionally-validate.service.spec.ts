@@ -104,4 +104,17 @@ describe('ConditinoallyValidateService', () => {
         expect(lastVal).toBeTruthy();
     }));
 
+    it('Form can validate nested controls', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
+        const form: FormGroup = fb.group({
+            x: fb.group({
+                a: 1
+            }),
+            y: fb.group({
+                b: ['', Validators.required]
+            })
+        });
+        cv.validate(form, 'y.b').when('x.a').is(1);
+        expect(form.valid).toBeFalsy();
+    }));
+
 });

@@ -15,18 +15,17 @@ export class ConditionallyValidateService {
     private bootstrapControlsWithValidator(form: FormGroup, dependents: Array<string>, conditionLatest$: Observable<any>, validatorFactory: (control: AbstractControl) => ValidatorFn) {
         // Hook in validator
         dependents.forEach(dependency => {
-            const dep = form.controls[dependency];
+            const dep = form.get(dependency);
             if (dep === null) {
                 throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector (${dependency}) for a dependency`);
             }
-            const f = validatorFactory(dep);
-            dep.setValidators(f);
+            dep.setValidators(validatorFactory(dep));
         });
 
         // Update our dependents whenever we get a value change
         conditionLatest$.subscribe(x => {
             dependents.forEach(dependency => {
-                const dep = form.controls[dependency];
+                const dep = form.get(dependency);
                 if (dep === null) {
                     throw new ReferenceError(`[Conditionally Validate]: Control selector (${dependency}) returns missing control. What the hell did you do.`);
                 }
@@ -51,7 +50,7 @@ export class ConditionallyValidateService {
     } {
         return {
             when: (condition: string) => {
-                const conditionControl = form.controls[condition];
+                const conditionControl = form.get(condition);
                 if (conditionControl === null) {
                     throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector (${condition}) for a condition`);
                 }
