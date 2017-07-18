@@ -20,27 +20,27 @@ describe('ConditinoallyValidateService', () => {
     it('Form should be valid without any form control value changes', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
         const form: FormGroup = fb.group({
             x: ['a'],
-            y: ['', Validators.required]
+            y: ['']
         });
-        cv.validate(form, 'y').when('x').is('b');
+        cv.validate(form, 'y').using(Validators.required).when('x').is('b');
         expect(form.valid).toBeTruthy();
     }));
 
     it('Form should not be valid without any form control value changes', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
         const form: FormGroup = fb.group({
             x: ['a'],
-            y: ['', Validators.required]
+            y: ['']
         });
-        cv.validate(form, 'y').when('x').is('a');
+        cv.validate(form, 'y').using(Validators.required).when('x').is('a');
         expect(form.valid).toBeFalsy();
     }));
 
     it('Form should require validation after condition is met', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
         const form: FormGroup = fb.group({
             x: ['a'],
-            y: ['', Validators.required]
+            y: ['']
         });
-        cv.validate(form, 'y').when('x').is('b');
+        cv.validate(form, 'y').using(Validators.required).when('x').is('b');
         expect(form.valid).toBeTruthy();
         form.get('x').setValue('b');
         expect(form.valid).toBeFalsy();
@@ -49,9 +49,9 @@ describe('ConditinoallyValidateService', () => {
     it('Service should return observable that emits a boolean whether or not validation is taking place', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
         const form: FormGroup = fb.group({
             x: ['a'],
-            y: ['', Validators.required]
+            y: ['']
         });
-        const obs = cv.validate(form, 'y').when('x').is('b');
+        const obs = cv.validate(form, 'y').using(Validators.required).when('x').is('b');
         expect(obs).toBeTruthy();
 
         let lastVal = null;
@@ -66,9 +66,9 @@ describe('ConditinoallyValidateService', () => {
     it('Should be valid when x "inNot" b', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
         const form: FormGroup = fb.group({
             x: ['a'],
-            y: ['', Validators.required]
+            y: ['']
         });
-        cv.validate(form, 'y').when('x').isNot('b');
+        cv.validate(form, 'y').using(Validators.required).when('x').isNot('b');
         expect(form.valid).toBeFalsy();
         form.get('x').setValue('b');
         expect(form.valid).toBeTruthy();
@@ -77,9 +77,9 @@ describe('ConditinoallyValidateService', () => {
     it('Should not be valid when x "inNot" b and starts out as b', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
         const form: FormGroup = fb.group({
             x: ['b'],
-            y: ['', Validators.required]
+            y: ['']
         });
-        cv.validate(form, 'y').when('x').isNot('b');
+        cv.validate(form, 'y').using(Validators.required).when('x').isNot('b');
         expect(form.valid).toBeTruthy();
         form.get('x').setValue('a');
         expect(form.valid).toBeFalsy();
@@ -88,12 +88,13 @@ describe('ConditinoallyValidateService', () => {
     it('Service using "isNot" should return observable that emits a boolean whether or not validation is taking place', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
         const form: FormGroup = fb.group({
             x: ['a'],
-            y: ['', Validators.required]
+            y: ['']
         });
 
         let lastVal = null;
 
         cv.validate(form, 'y')
+            .using(Validators.required)
             .when('x')
             .isNot('b')
             .subscribe(x => { lastVal = x; });
@@ -110,10 +111,38 @@ describe('ConditinoallyValidateService', () => {
                 a: 1
             }),
             y: fb.group({
-                b: ['', Validators.required]
+                b: ['']
             })
         });
-        cv.validate(form, 'y.b').when('x.a').is(1);
+        cv.validate(form, 'y.b').using(Validators.required).when('x.a').is(1);
+        expect(form.valid).toBeFalsy();
+    }));
+
+    it('Form control can be required by 2 or more other controls', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
+        const form: FormGroup = fb.group({
+            w: '',
+            x: '',
+            y: ''
+        });
+        const yReq = cv.validate(form, 'y').using(Validators.required);
+        yReq.when('w').is(2);
+        yReq.when('x').is(1);
+        expect(form.valid).toBeTruthy();
+
+        form.get('x').setValue(1);
+        expect(form.valid).toBeFalsy();
+
+        form.get('x').setValue(2);
+        expect(form.valid).toBeTruthy();
+
+        form.get('w').setValue(2);
+        expect(form.valid).toBeFalsy();
+
+        form.get('w').setValue(1);
+        expect(form.valid).toBeTruthy();
+
+        form.get('x').setValue(1);
+        form.get('w').setValue(2);
         expect(form.valid).toBeFalsy();
     }));
 

@@ -1,11 +1,17 @@
 // MIT - Eli C Davis
 
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+    AbstractControl,
+    FormControl,
+    FormGroup,
+    ValidationErrors,
+    Validator,
+    ValidatorFn,
+    Validators,
+} from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs/Rx';
-
-// https://github.com/rangle/angular-2-aot-sandbox#aot-dos-and-donts
 
 @Injectable()
 export class ConditionallyValidateService {
@@ -19,7 +25,7 @@ export class ConditionallyValidateService {
             if (dep === null) {
                 throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector (${dependency}) for a dependency`);
             }
-            dep.setValidators(validatorFactory(dep));
+            dep.setValidators(Validators.compose([dep.validator, validatorFactory(dep)]));
         });
 
         // Update our dependents whenever we get a value change
@@ -43,65 +49,67 @@ export class ConditionallyValidateService {
      * @param dependents    The controls that need conditional validtation. Use the selection scheme 'groupName.controlName' for selecting within a group
      */
     validate(form: FormGroup, ...dependents: Array<string>): {
-        when: (condition: string) => {
-            is: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean) => Observable<boolean>,
-            isNot: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean) => Observable<boolean>
+        using: (...validators: Array<ValidatorFn>) => {
+            when: (condition: string) => {
+                is: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean) => Observable<boolean>,
+                isNot: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean) => Observable<boolean>
+            }
         }
     } {
         return {
-            when: (condition: string) => {
-                const conditionControl = form.get(condition);
-                if (conditionControl === null) {
-                    throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector (${condition}) for a condition`);
+            using: (...validators: Array<ValidatorFn>) => {
+                const allValidators = Validators.compose(validators);
+                if (allValidators === null) {
+                    throw new ReferenceError(`[Conditionally Validate]: You need to pass in validator functions if you want me to validate!`);
                 }
-                const conditionLatest$ = new BehaviorSubject<any>(conditionControl.value);
-
-                conditionControl.valueChanges.subscribe(x => conditionLatest$.next(x));
-
                 return {
-                    is: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean): Observable<boolean> => {
-                        this.bootstrapControlsWithValidator(form, dependents, conditionLatest$,
-                            (originalControl: AbstractControl) => {
-                                const validators = originalControl.validator;
-                                if (validators === null) {
-                                    return (x) => null;
-                                } else {
-                                    return (control: AbstractControl): ValidationErrors | null => {
-                                        const eq: boolean = equalityCheck ?
-                                            equalityCheck(whenConditionalIsThis, conditionLatest$.getValue()) : whenConditionalIsThis === conditionLatest$.getValue();
+                    when: (condition: string) => {
+                        const conditionControl = form.get(condition);
+                        if (conditionControl === null) {
+                            throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector (${condition}) for a condition`);
+                        }
+                        const conditionLatest$ = new BehaviorSubject<any>(conditionControl.value);
 
-                                        return eq ? validators(control) : null;
-                                    };
-                                }
+                        conditionControl.valueChanges.subscribe(x => conditionLatest$.next(x));
+
+                        return {
+                            is: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean): Observable<boolean> => {
+                                this.bootstrapControlsWithValidator(form, dependents, conditionLatest$,
+                                    (originalControl: AbstractControl) => {
+                                        return (control: AbstractControl): ValidationErrors | null => {
+                                            const eq: boolean = equalityCheck ?
+                                                equalityCheck(whenConditionalIsThis, conditionLatest$.getValue()) : whenConditionalIsThis === conditionLatest$.getValue();
+                                            return eq ? allValidators(control) : null;
+                                        };
+                                    }
+                                );
+
+                                return conditionLatest$.map(x => equalityCheck ?
+                                    equalityCheck(whenConditionalIsThis, x) : whenConditionalIsThis === x);
+                            },
+                            isNot: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean) => {
+                                this.bootstrapControlsWithValidator(form, dependents, conditionLatest$,
+                                    (originalControl: AbstractControl) => {
+                                        return (control: AbstractControl): ValidationErrors | null => {
+                                            const eq: boolean = equalityCheck ?
+                                                equalityCheck(whenConditionalIsThis, conditionLatest$.getValue()) : whenConditionalIsThis === conditionLatest$.getValue();
+
+                                            return eq ? null : allValidators(control);
+                                        };
+                                    }
+                                );
+
+                                return conditionLatest$.map(x => equalityCheck ?
+                                    !equalityCheck(whenConditionalIsThis, x) : whenConditionalIsThis !== x);
                             }
-                        );
-
-                        return conditionLatest$.map(x => equalityCheck ?
-                            equalityCheck(whenConditionalIsThis, x) : whenConditionalIsThis === x);
-                    },
-                    isNot: (whenConditionalIsThis: any, equalityCheck?: (arg1: any, arg2: any) => boolean) => {
-                        this.bootstrapControlsWithValidator(form, dependents, conditionLatest$,
-                            (originalControl: AbstractControl) => {
-                                const validators = originalControl.validator;
-                                if (validators === null) {
-                                    return (x) => null;
-                                } else {
-                                    return (control: AbstractControl): ValidationErrors | null => {
-                                        const eq: boolean = equalityCheck ?
-                                            equalityCheck(whenConditionalIsThis, conditionLatest$.getValue()) : whenConditionalIsThis === conditionLatest$.getValue();
-
-                                        return eq ? null : validators(control);
-                                    };
-                                }
-                            }
-                        );
-
-                        return conditionLatest$.map(x => equalityCheck ?
-                            !equalityCheck(whenConditionalIsThis, x) : whenConditionalIsThis !== x);
+                        };
                     }
+
                 };
+
             }
         };
+
     }
 
 }
