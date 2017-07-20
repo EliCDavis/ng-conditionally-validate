@@ -18,13 +18,19 @@ export class ExampleTwoComponent {
     this.form = fb.group({
       likesPinable: [false],
       buyFromStarbucks: [false],
+      PAndM: [false],
+      boneless: [false],
       reasonEvil: ['']
     });
 
     const evilValidate = cv.validate(this.form, 'reasonEvil').using(Validators.required);
     this.evilVisible$ = evilValidate.when('likesPinable').is(true)
-      .combineLatest(evilValidate.when('buyFromStarbucks').is(true), (pine, coffee) => {
-        return pine || coffee;
+      .combineLatest(
+      evilValidate.when('buyFromStarbucks').is(true),
+      evilValidate.when('PAndM').is(true),
+      evilValidate.when('boneless').is(true),
+      (pine, coffee, pm, boneless) => {
+        return pine || coffee || pm || boneless;
       });
   }
 }

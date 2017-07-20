@@ -1,6 +1,5 @@
 // https://github.com/jasonhodges/ng2-gist/blob/master/src/ng2-gist.component.ts
 import { Observable, Subject } from 'rxjs/Rx';
-
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 

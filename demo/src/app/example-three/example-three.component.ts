@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ConditionallyValidateService } from 'ng-conditionally-validate';
 
@@ -16,8 +16,18 @@ export class ExampleThreeComponent {
     private cv: ConditionallyValidateService
   ) {
     this.form = fb.group({
-
+      typeOfAccount: ['normal'],
+      password: ['', [Validators.minLength(6), Validators.required]]
     });
+    const passwordRule = cv.validate(this.form, 'password');
+
+    passwordRule.using(Validators.minLength(12))
+      .when('typeOfAccount')
+      .is('admin');
+
+    passwordRule.using(Validators.minLength(18))
+      .when('typeOfAccount')
+      .is('super');
   }
 
 }

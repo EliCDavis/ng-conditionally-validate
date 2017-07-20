@@ -3,7 +3,7 @@ import 'hammerjs';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -18,7 +18,8 @@ import {
   MdTabsModule,
   MdChipsModule,
   MdIconModule,
-  MdSelectModule
+  MdSelectModule,
+  MdRadioModule
 } from '@angular/material';
 
 import { ConditionallyValidationModule } from 'ng-conditionally-validate';
@@ -60,7 +61,7 @@ import { HowToComponent } from './how-to/how-to.component';
     MdSelectModule,
     MdCardModule,
     MdIconModule,
-    FormsModule,
+    MdRadioModule,
     MdSlideToggleModule,
     ReactiveFormsModule,
     ConditionallyValidationModule,

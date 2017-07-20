@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { importExample } from "../code-examples";
+import { importExample, injectExample } from "../code-examples";
 
 @Component({
   selector: 'app-install',
@@ -9,6 +9,7 @@ import { importExample } from "../code-examples";
 export class InstallComponent implements OnInit {
 
   importEx: string = importExample;
+  injectExample: string = injectExample;
 
   constructor() { }
 

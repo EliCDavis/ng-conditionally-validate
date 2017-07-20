@@ -42,14 +42,13 @@ export class AppComponent implements OnInit {
       '/how-to': 'How To',
       '/example/1': 'Basic Validation',
       '/example/2': 'Multiple Conditions',
-      '/example/3': 'Conditional Validators'
+      '/example/3': 'Stacking Validators'
     }
 
     this.sections = [
       {
         title: "Introduction",
         subsections: [
-          "/inspiration",
           "/install",
           "/how-to"
         ]
@@ -92,6 +91,10 @@ export class AppComponent implements OnInit {
       'menu',
       sanitizer.bypassSecurityTrustResourceUrl('assets/menu.svg'));
 
+    iconRegistry.addSvgIcon(
+      'home',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/ic_home_white_24px.svg'));
+
     this.sidenavToggleClick$ = new Subject<any>();
     this.sidenavCloseRequest$ = new Subject<any>();
 
@@ -99,7 +102,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.sidenavMode = Observable.merge
       (
       Observable.fromEvent(window, 'resize')
@@ -123,12 +125,10 @@ export class AppComponent implements OnInit {
       (mode: string, toggle) => mode === 'side' ? true : toggle
     ).share();
 
-
     this.showHamburgerMenu$ = this.normalTitleBar$
       .combineLatest(this.sidenavMode, (normal, mode) => {
         return normal ? mode === 'over' : false;
-      })
-
+      });
   }
 
 }

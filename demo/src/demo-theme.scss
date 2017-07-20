@@ -2,8 +2,8 @@
 
 @include mat-core();
 
-$demo-app-primary: mat-palette($mat-cyan);
-$demo-app-accent:  mat-palette($mat-teal);
+$demo-app-primary: mat-palette($mat-teal);
+$demo-app-accent:  mat-palette($mat-cyan);
 $demo-app-warn:    mat-palette($mat-red);
 
 $demo-app-theme: mat-light-theme($demo-app-primary, $demo-app-accent, $demo-app-warn);

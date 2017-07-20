@@ -1,10 +1,18 @@
 <app-example title="Multiple Conditions" tsGistId="EliCDavis/cbc5f8c3d1b483b9ff8e">
   <div example-description>
-    Require a entry to be validated depending on the values of one or <b>multiple</b> other controls.
+    <p>Require a entry to be validated depending on the values of one or <b>multiple</b> other controls. In this example we
+      require a certain field (reason your evil) to be filled out when either of the other toggleable values are true.</p>
+    <p>Whenever you complete a conditional statement, a Rx Observable is returned that emits a boolean value as to whether or
+      not the validator function(s) orginally passed in are currently being applied.</p>
+    <p> We can use this observable to determine whether or not we want to render an extra field. Play around with the toggles
+      and watch it appear.</p>
   </div>
   <div example-body [formGroup]="form" fxLayout="column" fxLayoutAlign="center center" style="margin-top: 25px;" fxLayoutGap="20px">
+    <div>Do you...</div>
     <md-slide-toggle formControlName="buyFromStarbucks">Buy From Starbucks</md-slide-toggle>
     <md-slide-toggle formControlName="likesPinable">Like Pineapple Pizza</md-slide-toggle>
+    <md-slide-toggle formControlName="PAndM">Like both Pickles <i>and</i> Mayonnaise</md-slide-toggle>
+    <md-slide-toggle formControlName="boneless">Order Boneless Pizza</md-slide-toggle>
 
     <md-input-container *ngIf="this.evilVisible$ | async">
       <input mdInput formControlName="reasonEvil" placeholder="Reason Evil">

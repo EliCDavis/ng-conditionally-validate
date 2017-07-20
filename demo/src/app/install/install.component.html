@@ -1,20 +1,33 @@
-<div fxLayout="column" fxFlex>
-  <h2>Download</h2>
-  <div>
-    You can find this library on npm.
-  </div>
-  <div class="example-code">
-    <code>npm i ng-conditionally-validate --save</code>
-  </div>
+<div fxLayout="column" class="mat-typography" fxFlex fxLayoutGap="8px">
 
-  <h2>Import</h2>
-  <div>
-    Import the module into your app.
-  </div>
-  <div class="example-code">
-    <code [innerText]="importEx"></code>
-  </div>
+  <md-card>
+    <h2>Download</h2>
+    <div>
+      You can find this library on npm.
+    </div>
+    <div class="example-code">
+      <code>npm i ng-conditionally-validate --save</code>
+    </div>
+  </md-card>
+
+  <md-card>
+    <h2>Import</h2>
+    <div>
+      Import the module into your app.
+    </div>
+    <div class="example-code">
+      <code [innerText]="importEx"></code>
+    </div>
+  </md-card>
+
+  <md-card>
+    <h2>Inject</h2>
+    <div>For your component to use it you need to import it as a service into one of your services</div>
+    <div class="example-code">
+      <code [innerText]="injectExample"></code>
+    </div>
+  </md-card>
 
   <div fxFlex></div>
-  <button md-raised-button color="primary">See Examples</button>
+  <button fxFlex="noshrink" md-raised-button color="primary">See Examples</button>
 </div>
