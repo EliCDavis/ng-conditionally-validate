@@ -1,38 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConditionallyValidateService } from 'ng-conditionally-validate';
-import { exampleOne } from "../code-examples";
 
 @Component({
   selector: 'app-example-two',
   templateUrl: './example-two.component.html',
   styleUrls: ['./example-two.component.css']
 })
-export class ExampleTwoComponent implements OnInit {
+export class ExampleTwoComponent {
 
-  codeExample: string = exampleOne;
+  evilVisible$: Observable<boolean>;
 
   form: FormGroup;
 
-  pizzaTypes: Array<any> = [
-    { value: 'cheese', viewValue: 'Cheese' },
-    { value: 'peperoni', viewValue: 'Peperoni' },
-    { value: 'pineapple', viewValue: 'Pineapple' }
-  ]
-
   constructor(private cv: ConditionallyValidateService, private fb: FormBuilder) {
-
     this.form = fb.group({
-      favoritePizza: ['', Validators.required],
+      likesPinable: [false],
       buyFromStarbucks: [false],
-      reasonEvil: ['', Validators.required]
+      reasonEvil: ['']
     });
 
-    const evilValidate = cv.validate(this.form, 'reasonEvil');
-    evilValidate.when('favoritePizza').is('pineapple');
-    evilValidate.when('buyFromStarbucks').is(true);
-  }
-
-  ngOnInit() {
+    const evilValidate = cv.validate(this.form, 'reasonEvil').using(Validators.required);
+    this.evilVisible$ = evilValidate.when('likesPinable').is(true)
+      .combineLatest(evilValidate.when('buyFromStarbucks').is(true), (pine, coffee) => {
+        return pine || coffee;
+      });
   }
 }

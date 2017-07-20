@@ -1,0 +1,16 @@
+<md-card>
+  <md-card-title [innerText]="title"></md-card-title>
+  <md-card-content fxLayoutGap="10px" fxLayout="column">
+    <md-card-subtitle>
+      <ng-content select="[example-description]"></ng-content>
+    </md-card-subtitle>
+    <md-tab-group dynamicHeight="true" (selectedIndexChange)="tabChange($event)">
+      <md-tab label="Result">
+        <ng-content select="[example-body]"></ng-content>
+      </md-tab>
+      <md-tab label="TS">
+        <ng-gist [gistId]="loadedTsGist"></ng-gist>
+      </md-tab>
+    </md-tab-group>
+  </md-card-content>
+</md-card>

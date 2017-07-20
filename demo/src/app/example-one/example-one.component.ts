@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConditionallyValidateService } from 'ng-conditionally-validate';
-import { exampleOne } from "../code-examples";
 
 @Component({
   selector: 'app-example-one',
@@ -10,19 +9,18 @@ import { exampleOne } from "../code-examples";
 })
 export class ExampleOneComponent implements OnInit {
 
-  codeExample: string = exampleOne;
-
   form: FormGroup;
 
   constructor(private cv: ConditionallyValidateService, private fb: FormBuilder) {
 
     this.form = fb.group({
       human: [false],
-      food: ['', Validators.required],
-      drink: ['', Validators.required]
+      food: [''],
+      drink: ['']
     });
 
     cv.validate(this.form, 'food', 'drink')
+      .using(Validators.required)
       .when('human')
       .is(true)
   }

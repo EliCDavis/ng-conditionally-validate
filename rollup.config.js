@@ -1,6 +1,7 @@
 const globals = {
     '@angular/core': 'ng.core',
     '@angular/forms': 'ng.forms',
+    'rxjs': 'Rx',
     'rxjs/Observable': 'Rx',
     'rxjs/BehaviorSubject': 'Rx',
     'rxjs/add/operator/map': 'Rx.Observable.prototype',

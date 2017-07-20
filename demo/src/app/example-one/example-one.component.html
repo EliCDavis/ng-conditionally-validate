@@ -1,34 +1,21 @@
-<md-card>
-  <md-card-content fxLayoutGap="10px" fxLayout="column">
-    <md-card-subtitle>
-      Require one or many properties of a form to be validated for the form as a whole to be considered valid
-    </md-card-subtitle>
-    <md-tab-group>
-      <md-tab label="Result" [formGroup]="form">
-        <div fxLayout="column" style="margin-top: 15px;" fxLayoutGap="10px">
-          <md-slide-toggle formControlName="human">Are You Human?</md-slide-toggle>
-          <md-input-container>
-            <input mdInput formControlName="food" placeholder="Favorite food">
-            <md-error *ngIf="form.get('food').hasError('required')">
-              All Humans like to eat something.
-            </md-error>
-          </md-input-container>
-          <md-input-container>
-            <input mdInput formControlName="drink" placeholder="Favorite Drink">
-            <md-error *ngIf="form.get('drink').hasError('required')">
-              All Humans like to sip on something.
-            </md-error>
-          </md-input-container>
-          <app-form-validation-status [form]="form"> </app-form-validation-status>
-        </div>
-      </md-tab>
-
-      <md-tab label="TS">
-        <div class="example-code" style="overflow: auto">
-          <code [innerText]="codeExample"></code>
-        </div>
-      </md-tab>
-
-    </md-tab-group>
-  </md-card-content>
-</md-card>
+<app-example title="Basic Validators" tsGistId="EliCDavis/cbc5f8c3d1b483b9ff8e">
+  <div example-description>
+    Require one or many properties of a form to be validated for the form as a whole to be considered valid
+  </div>
+  <div [formGroup]="form" example-body fxLayout="column" style="margin-top: 15px;" fxLayoutGap="10px">
+    <md-slide-toggle formControlName="human">Are You Human?</md-slide-toggle>
+    <md-input-container>
+      <input mdInput formControlName="food" placeholder="Favorite food">
+      <md-error *ngIf="form.get('food').hasError('required')">
+        All Humans like to eat something.
+      </md-error>
+    </md-input-container>
+    <md-input-container>
+      <input mdInput formControlName="drink" placeholder="Favorite Drink">
+      <md-error *ngIf="form.get('drink').hasError('required')">
+        All Humans like to sip on something.
+      </md-error>
+    </md-input-container>
+    <app-form-validation-status [form]="form"> </app-form-validation-status>
+  </div>
+</app-example>

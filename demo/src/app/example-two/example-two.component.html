@@ -1,33 +1,18 @@
-<md-card>
-  <md-card-title>
-    Multiple Conditions
-  </md-card-title>
-  <md-card-content fxLayoutGap="10px" fxLayout="column">
-    <md-card-subtitle>
-      Require a entry to be validated depending on the values of one or <b>multiple</b> other controls.
-    </md-card-subtitle>
-    <md-tab-group>
-      <md-tab label="Result" [formGroup]="form">
-        <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 25px;" fxLayoutGap="20px">
+<app-example title="Multiple Conditions" tsGistId="EliCDavis/cbc5f8c3d1b483b9ff8e">
+  <div example-description>
+    Require a entry to be validated depending on the values of one or <b>multiple</b> other controls.
+  </div>
+  <div example-body [formGroup]="form" fxLayout="column" fxLayoutAlign="center center" style="margin-top: 25px;" fxLayoutGap="20px">
+    <md-slide-toggle formControlName="buyFromStarbucks">Buy From Starbucks</md-slide-toggle>
+    <md-slide-toggle formControlName="likesPinable">Like Pineapple Pizza</md-slide-toggle>
 
-          <md-select formControlName="favoritePizza" style="width:80%" placeholder="Favorite Pizza">
-            <md-option *ngFor="let pizza of pizzaTypes" [value]="pizza.value">
-              {{ pizza.viewValue }}
-            </md-option>
-          </md-select>
+    <md-input-container *ngIf="this.evilVisible$ | async">
+      <input mdInput formControlName="reasonEvil" placeholder="Reason Evil">
+      <md-error *ngIf="form.get('reasonEvil').hasError('required')">
+        You must be evil
+      </md-error>
+    </md-input-container>
 
-          <md-slide-toggle formControlName="buyFromStarbucks">Do You Buy From Starbucks</md-slide-toggle>
-
-          <app-form-validation-status [form]="form"> </app-form-validation-status>
-        </div>
-      </md-tab>
-
-      <md-tab label="TS">
-        <div class="example-code" style="overflow: auto">
-          <code [innerText]="codeExample"></code>
-        </div>
-      </md-tab>
-
-    </md-tab-group>
-  </md-card-content>
-</md-card>
+    <app-form-validation-status [form]="form"> </app-form-validation-status>
+  </div>
+</app-example>

@@ -10,7 +10,7 @@
 <md-sidenav-container (backdropClick)="sidenavCloseRequest$.next($event)" style="flex: 1; display: flex; flex-direction: column">
   <md-sidenav fxLayout="column" [mode]='sidenavMode | async' [opened]="sidenavOpen$ | async" #sidenav>
     <div class="mat-typography" id="md-sidenav-content">
-
+      <!-- 
       <div class="option-section-header">Introduction</div>
 
       <div routerLink="/install" [ngClass]="{ 'selected': (title$ | async) === 'Install' }" class="option" (click)="sidenavCloseRequest$.next($event)">
@@ -22,7 +22,14 @@
       <div routerLink="/example/2" [ngClass]="{ 'selected': (title$ | async) === 'Multiple Conditions' }" class="option" (click)="sidenavCloseRequest$.next($event)">
         Multiple Conditions
       </div>
-      <div routerLink="/example/3" [ngClass]="{ 'selected': (title$ | async) === 'Conditional Validators' }" class="option" (click)="sidenavCloseRequest$.next($event)">Conditional Validators</div>
+      <div routerLink="/example/3" [ngClass]="{ 'selected': (title$ | async) === 'Conditional Validators' }" class="option" (click)="sidenavCloseRequest$.next($event)">Conditional Validators</div> -->
+
+      <div *ngFor="let section of sections" style="margin-bottom: 20px;">
+        <div class="option-section-header" [innerText]="section.title"></div>
+        <div *ngFor="let sub of section.subsections" [routerLink]="sub" [ngClass]="{ 'selected': (title$ | async) === routeToTitle[sub] }"
+          class="option" (click)="sidenavCloseRequest$.next($event)" [innerText]="routeToTitle[sub]"></div>
+      </div>
+
 
     </div>
   </md-sidenav>

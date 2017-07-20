@@ -5,13 +5,6 @@ import { MdIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
-const routeToTitle = {
-  '/': 'Ng Conditionally Validate',
-  '/install': 'Install',
-  '/example/1': 'Basic Validation',
-  '/example/2': 'Multiple Conditions',
-  '/example/3': 'Conditional Validators'
-}
 
 @Component({
   selector: 'app-root',
@@ -19,6 +12,10 @@ const routeToTitle = {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  routeToTitle: any;
+
+  fuck() { return "" }
 
   title$: Observable<string>;
 
@@ -34,12 +31,43 @@ export class AppComponent implements OnInit {
 
   showHamburgerMenu$: Observable<boolean>;
 
+  sections: Array<{ title: string, subsections: Array<string> }>;
+
   constructor(private route: Router, iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+
+    this.routeToTitle = {
+      '/': 'Ng Conditionally Validate',
+      '/install': 'Setup',
+      '/inspiration': 'Insipration',
+      '/how-to': 'How To',
+      '/example/1': 'Basic Validation',
+      '/example/2': 'Multiple Conditions',
+      '/example/3': 'Conditional Validators'
+    }
+
+    this.sections = [
+      {
+        title: "Introduction",
+        subsections: [
+          "/inspiration",
+          "/install",
+          "/how-to"
+        ]
+      },
+      {
+        title: "Examples",
+        subsections: [
+          "/example/1",
+          "/example/2",
+          "/example/3"
+        ]
+      }
+    ];
 
     this.title$ = route.events
       .filter(url => url instanceof NavigationEnd)
       .map((url: NavigationEnd) => {
-        return routeToTitle[url.urlAfterRedirects];
+        return this.routeToTitle[url.urlAfterRedirects];
       })
 
     this.normalTitleBar$ = route.events
