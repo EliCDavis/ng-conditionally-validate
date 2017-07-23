@@ -1,3 +1,73 @@
-<p>
-  how-to works!
-</p>
+<div fxFlex.gt-xs fxFlex.xs="none"></div>
+
+<div fxFlex.gt-xs="80">
+  <h1>
+    Reactive Forms
+  </h1>
+  <p>
+    This library takes advantage of angular's
+    <code class="example-code"><a href="https://angular.io/guide/reactive-forms">reactive forms</a></code>    module. If you are making forms of any kind inside your application and you are
+    not using it, you should take the time to read up on what it is and how to get
+    it setup in your project. It will speed up making any kind of form you can think
+    of, and provides many different methods of form validation right in their with
+    it while making it easy to implement your own validators. On top of all that,
+    it transforms all form edits by the user into ReactiveX observables, giving you
+    the power of any observable operator.
+  </p>
+  <h1>Creating a Form</h1>
+  <p>
+    First we want to create a basic reactive form to hook into the template of our controller.
+    I will not go into too much detail for this part of the process since there are
+    plenty tutorials out there that tells you how it works in great detail. So in
+    our component we might have something like this: <br/>
+  </p>
+  <div class="example-code"><code [innerText]="formThing"></code></div>
+  <p style="margin-top: 15px;">
+    Here we've used Angular's Form Builder to create us a reactive form with the two
+    controls <code class="example-code">referal</code> and <code class="example-code">alternativeReferal</code>.
+    At this point in time the form has a single validator function that is run against
+    the value of <code class="example-code">referal</code> whenever some change to
+    the form is made. With this specific validator, <code class="example-code">referal</code>    must not be an empty string for it to be considered valid. Once all controls
+    are considered valid then the form as a whole is considered valid.
+  </p>
+
+  <p>
+    This kind of form might seem familiar. Imagine we're trying to figure out how people
+    found out about your online service. You might have a dropdown who's value is
+    bound to the <code class="example-code">referal</code> control of our form.
+    But of course you can't think of every posibility of how a user found your website,
+    so you've left an extra option 'other', and a extra field <code class="example-code">alternativeReferal</code>    for a user to fill in. You don't really need the user to fill in the alternative
+    referal field unless the referal field is set to 'other'. Also, you really don't
+    want the alternative referal text field to even render unless needed. This library
+    makes that kind of functionality easy.
+  </p>
+
+  <h1>Enter: Ng Conditionally Validate</h1>
+  <p>
+    All we need to do is import the Conditionally Validate Service and inject it into
+    our component. We pass it our form and specify what controls we want to have
+    some form of validation ran on them using the service's <code class="example-code">validate()</code>    function. This function is meant to be chained with multiple other calls to specify
+    what exactly you want to happen with validation and how. At the end of the chaining
+    you are returned an Rx observable that emits a boolean as to whether or not your
+    validation functions you specified are being ran on the form controls you passed
+    in. In the end we have our controller looking something like this:
+  </p>
+  <div class="example-code"><code [innerText]="formThingComplete"></code></div>
+  <p style="margin-top: 15px">
+    And the template code might look like this:
+  </p>
+  <div class="example-code"><code [innerText]="formThingTemplate"></code></div>
+  <p style="margin-top: 15px">
+    The form is now only considered valid as a whole when referal is not empty, and if
+    it is 'other' then alternative referal must not be empty.
+  </p>
+  <p>
+    Now that you understand what this library aims to achieve, try checking out some
+    examples on how you can use this.
+  </p>
+  <div fxLayoutAlign="center" style="margin: 8px">
+    <button routerLink="/example/1" md-button color="primary">Examples</button>
+  </div>
+</div>
+
+<div fxFlex.gt-xs fxFlex.xs="none"></div>

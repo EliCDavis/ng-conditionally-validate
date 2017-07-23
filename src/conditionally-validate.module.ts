@@ -12,4 +12,4 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
         ConditionallyValidateService
     ],
 })
-export class ConditionallyValidationModule { }
+export class ConditionallyValidateModule { }

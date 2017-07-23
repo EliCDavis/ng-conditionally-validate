@@ -22,7 +22,7 @@ import {
   MdRadioModule
 } from '@angular/material';
 
-import { ConditionallyValidationModule } from 'ng-conditionally-validate';
+import { ConditionallyValidateModule } from 'ng-conditionally-validate';
 
 import { AppComponent } from './app.component';
 import { ExampleOneComponent } from './example-one/example-one.component';
@@ -64,7 +64,7 @@ import { HowToComponent } from './how-to/how-to.component';
     MdRadioModule,
     MdSlideToggleModule,
     ReactiveFormsModule,
-    ConditionallyValidationModule,
+    ConditionallyValidateModule,
     MdButtonModule,
     FlexLayoutModule,
     MdTabsModule,

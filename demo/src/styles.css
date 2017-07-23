@@ -15,7 +15,9 @@ app-root {
     app-home,
     app-example-one,
     app-example-two,
-    app-example-three {
+    app-example-three,
+    app-install,
+    app-how-to {
         margin: 16px;
     }
 }
@@ -24,7 +26,9 @@ app-root {
     app-home,
     app-example-one,
     app-example-two,
-    app-example-three {
+    app-example-three,
+    app-install,
+    app-how-to {
         margin: 8px;
     }
 }

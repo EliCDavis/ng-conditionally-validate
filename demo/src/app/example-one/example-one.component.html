@@ -1,12 +1,14 @@
-<app-example title="Basic Validators" tsGistId="EliCDavis/cbc5f8c3d1b483b9ff8e">
+<app-example title="Basic Validators" tsGistId="EliCDavis/241577d528e9948408ca02705b7b6dac">
   <div example-description>
     <p>
-      Require one or many properties of a form to be validated for the form as a whole to be considered valid whenever a certain
-      condition is met.
+      Require one or many properties of a form to be validated for the form as a whole
+      to be considered valid whenever a certain condition is met.
     </p>
-    <p>In this example we require you to fill our your favorite food and drink if you validate that you are human</p>
+    <p>In this example we require you to fill our your favorite food and drink if you
+      validate that you are human</p>
   </div>
-  <div [formGroup]="form" example-body fxLayout="column" style="margin-top: 15px;" fxLayoutGap="10px">
+  <div [formGroup]="form" example-body fxLayout="column" style="margin-top: 15px;"
+    fxLayoutGap="10px">
     <md-slide-toggle formControlName="human">Are You Human?</md-slide-toggle>
     <md-input-container>
       <input mdInput formControlName="food" placeholder="Favorite food">

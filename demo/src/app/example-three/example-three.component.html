@@ -1,17 +1,21 @@
-<app-example title="Stacking Validators" tsGistId="EliCDavis/cbc5f8c3d1b483b9ff8e">
+<app-example title="Stacking Validators" tsGistId="EliCDavis/aa3cf02124ae36ed47649428de854f98">
   <div example-description>
     <p>
-      You can combine validator functions at any point of time, which allows you to build more and more restrive controls based
-      on how a form gets filled out
+      You can combine validator functions at any point of time, which allows you to build
+      more and more restrive controls based on how a form gets filled out
     </p>
     <p>
-      For example we can use this to require a more complex password than the original requirement if the account type has higher
-      privledges. This example increases the minimum length of a password as privledge level grows, but you could substitute
-      this for your own custom validator functions, such as ones that require certain special characters to exist.
+      For example we can use this to require a more complex password than the original
+      requirement if the account type has higher privledges. This example increases
+      the minimum length of a password as privledge level grows, but you could substitute
+      this for your own custom validator functions, such as ones that require certain
+      special characters to exist.
     </p>
-    <p>Try typing a password to satisfy the account type requirement, and then change the account type</p>
+    <p>Try typing a password to satisfy the account type requirement, and then change
+      the account type</p>
   </div>
-  <div [formGroup]="form" example-body fxLayout="column" style="margin-top: 15px;" fxLayoutGap="10px">
+  <div [formGroup]="form" example-body fxLayout="column" style="margin-top: 15px;"
+    fxLayoutGap="10px">
 
     <h4>Account Type</h4>
     <md-radio-group formControlName="typeOfAccount">
@@ -26,7 +30,8 @@
         Please enter a password for your account
       </md-error>
       <md-error *ngIf="form.get('password').hasError('minlength')">
-        Your account type requires a minimum of {{form.get('password').getError('minlength').requiredLength}} characters
+        Your account type requires a minimum of {{form.get('password').getError('minlength').requiredLength}}
+        characters
       </md-error>
     </md-input-container>
     <app-form-validation-status [form]="form"> </app-form-validation-status>

@@ -3,12 +3,14 @@
   <div fxFlex></div>
 
   <md-card>
-    Filling out forms on some webpages is not always an 'all-or-none' proccess. Certain data fields may or may not need validation
-    due to how previous entries have been filled out. This library aims to make conditional validation in Angular 4 an intuitive
-    one-liner.
+    Filling out forms on some webpages is not always an 'all-or-none' proccess. Certain
+    data fields may or may not need validation due to how previous entries have been
+    filled out. This library aims to make conditional validation in Angular 4 an
+    intuitive 'one-liner'.
     <br>
     <div class="example-code">
       <code>validate(form, 'address')
+  .using(Validators.required)
   .when('workingFromHome')
   .is(true);</code>
     </div>
