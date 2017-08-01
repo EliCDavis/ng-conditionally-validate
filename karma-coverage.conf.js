@@ -1,4 +1,22 @@
 const karmaConf = require('./karma.conf.js');
+
+const coverage_reporters = [
+  { type: 'text-summary' },
+];
+const reporters = [
+  /*'spec',*/
+  'progress', 'kjhtml', 'coverage', 'remap-coverage'
+];
+
+if (process.env.TRAVIS) {
+  console.log('On Travis sending coveralls');
+  coverage_reporters.push({ type: 'lcov', dir: 'coverage' });
+  reporters.push('coveralls');
+} else {
+  console.log('Not on Travis so not sending coveralls');
+  coverage_reporters.push({ type: 'html', dir: 'coverage', 'subdir': '.' });
+}
+
 module.exports = function (config) {
   // Generic Karma Configuration
   karmaConf(config);
@@ -10,6 +28,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
+      require('karma-coveralls'),
       require('karma-remap-coverage')
     ],
     customLaunchers: {
@@ -23,11 +42,8 @@ module.exports = function (config) {
     preprocessors: {
       './test/**/!(*spec).js': 'coverage'
     },
-    reporters: ['progress', 'kjhtml', 'coverage', 'remap-coverage'],
-
-    coverageReporter: {
-      type: 'in-memory'
-    },
+    reporters: reporters,
+    coverageReporter: coverage_reporters,
     remapCoverageReporter: {
       'text-summary': null,
       html: './coverage/html',
