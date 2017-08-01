@@ -4,13 +4,14 @@
   "description": "utility to making certain form controls validated only when certain requirements are met",
   "main": "index.js",
   "scripts": {
+    "coverage": "karma start karma-coverage.conf.js --single-run",
     "transpile": "ngc",
     "package": "rollup -c",
     "minify": "uglifyjs dist/bundles/ng-conditionally-validate.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ng-conditionally-validate.umd.min.js",
-    "build": "npm run transpile && npm run package && npm run minify",
+    "build": "cp README.md dist/README.md && npm run transpile && npm run package && npm run minify",
     "lint": "tslint ./src/**/*.ts -t verbose",
-    "dev": "concurrently \"tsc -p ./tsconfig.spec.json -w\" \"karma start karma.conf.js\"",
-    "test": "tsc -p ./tsconfig.spec.json && karma start karma.conf.js --single-run"
+    "dev": "concurrently \"tsc -p ./tsconfig.dev.json -w\" \"karma start karma.conf.js\"",
+    "test": "cp -R src test/ && tsc -p ./tsconfig.spec.json && npm run coverage"
   },
   "keywords": [
     "angular",
@@ -34,11 +35,13 @@
     "json-loader": "^0.5.4",
     "karma": "1.6.0",
     "karma-chrome-launcher": "2.0.0",
+    "karma-coverage": "^1.1.1",
     "karma-coverage-istanbul-reporter": "^1.3.0",
     "karma-jasmine": "1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-mocha-reporter": "^2.2.0",
     "karma-phantomjs-launcher": "1.0.4",
+    "karma-remap-coverage": "^0.1.4",
     "karma-webpack": "^2.0.3",
     "marked": "^0.3.6",
     "phantomjs-prebuilt": "^2.1.7",

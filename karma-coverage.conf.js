@@ -12,8 +12,16 @@ module.exports = function (config) {
       require('karma-coverage'),
       require('karma-remap-coverage')
     ],
+    customLaunchers: {
+      // From the CLI. Not used here but interesting
+      // chrome setup for travis CI using chromium
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
     preprocessors: {
-      './src/lib/**/!(*spec).js': 'coverage'
+      './test/**/!(*spec).js': 'coverage'
     },
     reporters: ['progress', 'kjhtml', 'coverage', 'remap-coverage'],
 

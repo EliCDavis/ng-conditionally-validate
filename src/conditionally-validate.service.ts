@@ -23,7 +23,7 @@ export class ConditionallyValidateService {
         dependents.forEach(dependency => {
             const dep = form.get(dependency);
             if (dep === null) {
-                throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector (${dependency}) for a dependency`);
+                throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector '${dependency}' for a dependency`);
             }
             dep.setValidators(Validators.compose([dep.validator, validatorFactory(dep)]));
         });
@@ -33,7 +33,7 @@ export class ConditionallyValidateService {
             dependents.forEach(dependency => {
                 const dep = form.get(dependency);
                 if (dep === null) {
-                    throw new ReferenceError(`[Conditionally Validate]: Control selector (${dependency}) returns missing control. What the hell did you do.`);
+                    throw new ReferenceError(`[Conditionally Validate]: Control selector '${dependency}' returns missing control. Did you remove the control from the form?`);
                 }
                 dep.updateValueAndValidity();
             });
@@ -60,13 +60,13 @@ export class ConditionallyValidateService {
             using: (...validators: Array<ValidatorFn>) => {
                 const allValidators = Validators.compose(validators);
                 if (allValidators === null) {
-                    throw new ReferenceError(`[Conditionally Validate]: You need to pass in validator functions if you want me to validate!`);
+                    throw new ReferenceError(`[Conditionally Validate]: You didn't pass in any validator functions!`);
                 }
                 return {
                     when: (condition: string) => {
                         const conditionControl = form.get(condition);
                         if (conditionControl === null) {
-                            throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector (${condition}) for a condition`);
+                            throw new ReferenceError(`[Conditionally Validate]: Passed in bad control selector '${condition}' for a condition`);
                         }
                         const conditionLatest$ = new BehaviorSubject<any>(conditionControl.value);
 

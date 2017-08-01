@@ -13,9 +13,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "rootDir": "./src",
     "module": "es2015",
-    "inlineSources": true,
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -36,10 +34,7 @@
     "./src/index.ts"
   ],
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
-    "skipTemplateCodegen": true,
-    "flatModuleOutFile": "ng-conditionally-validate.js",
-    "flatModuleId": "ng-conditionally-validate"
+    "skipTemplateCodegen": true
   }
 }

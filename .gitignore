@@ -6,3 +6,4 @@ dist/*
 !dist/package.json
 !dist/README.md
 test/*
+coverage

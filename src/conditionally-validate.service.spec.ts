@@ -1,7 +1,7 @@
 // MIT - Eli C Davis
 
 import { TestBed, inject } from '@angular/core/testing';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 
 import { ConditionallyValidateService } from './conditionally-validate.service';
 import { Observable } from 'rxjs/Rx';
@@ -144,6 +144,25 @@ describe('ConditinoallyValidateService', () => {
         form.get('x').setValue(1);
         form.get('w').setValue(2);
         expect(form.valid).toBeFalsy();
+    }));
+
+    it('throws error when no validators are passed in', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
+        expect(() => cv.validate(fb.group({ x: '' }), 'y').using()).toThrowError('[Conditionally Validate]: You didn\'t pass in any validator functions!');
+    }));
+
+    it('throws error when bad selector is passed in', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
+        expect(() => cv.validate(fb.group({ x: '' }), 'x').using(Validators.required).when('y')).toThrowError('[Conditionally Validate]: Passed in bad control selector \'y\' for a condition');
+    }));
+
+    it('throws error when bad selector to validate is passed in', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
+        expect(() => cv.validate(fb.group({ x: '' }), 'y').using(Validators.required).when('x').is(true)).toThrowError('[Conditionally Validate]: Passed in bad control selector \'y\' for a dependency');
+    }));
+
+    it('throws error when selector has become bad once removed from a form', inject([ConditionallyValidateService, FormBuilder], (cv: ConditionallyValidateService, fb: FormBuilder) => {
+        const form = fb.group({ x: '', y: '' });
+        cv.validate(form, 'x').using(Validators.required).when('y').is('something');
+        form.removeControl('x');
+        expect(() => form.get('y').setValue('else')).toThrowError('[Conditionally Validate]: Control selector \'x\' returns missing control. Did you remove the control from the form?');
     }));
 
 });

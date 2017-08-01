@@ -9,7 +9,7 @@
         "emitDecoratorMetadata": true
     },
     "files": [
-        "./test/index.ts",
-        "./test/conditionally-validate.service.spec.ts"
+        "./src/index.ts",
+        "./src/conditionally-validate.service.spec.ts"
     ]
 }
