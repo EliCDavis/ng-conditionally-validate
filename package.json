@@ -56,7 +56,7 @@
     "typescript": "^2.4.1",
     "uglify-js": "^3.0.23",
     "vrsource-tslint-rules": "^5.1.0",
-    "webpack": "2.3.3",
+    "webpack": "5.94.0",
     "zone.js": "^0.8.5"
   },
   "dependencies": {
